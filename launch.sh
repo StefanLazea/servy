@@ -1,12 +1,13 @@
 #!/bin/bash
 cmd=$1;
+source env/bin/activate
 
-case $cmd in 
-    "create")
-        python3 py/create.py $@
+case $cmd in
+    "write")
+        python py/write.py $@
         ;;
     "version")
-        python3 py/version.py
+        python py/version.py
         ;;
     "help")
         echo "Halp pls"
