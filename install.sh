@@ -9,7 +9,6 @@ else
     sudo apt-get install python3
 fi
 
-
 if dpkg -s python3-venv &> /dev/null; then
     echo Package python3-venv is installed!
 else
@@ -28,6 +27,7 @@ pip3 install -r dependencies
 pip freeze
 
 #creates an alias for history to current_directory/./launch.sh as a static path
-alias history='$PWD/./launch.sh'
+echo "alias servy='$(pwd)/./launch.sh'" >> ~/.bashrc
+source ~/.bashrc
 
 echo "Welcome to history-cli, $(whoami)!"
