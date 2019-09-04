@@ -1,7 +1,12 @@
 import sys
 import json
+import time
+import threading
 from os import path
 import hashlib
+
+loaded = True
+error = False
 
 
 def get_storage():
@@ -19,21 +24,17 @@ def get_shared_users():
     return storage['shared_users']
 
 
-def calculate_file_hash(file):
-    sha1 = hashlib.sha1()
-    BUF_SIZE = 65536
-    while True:
-        data = file.read(BUF_SIZE)
-        if not data:
-            break
-        sha1.update(data)
+def calculate_file_hash(file_name):
+    with open(file_name, "rb") as file:
+        sha1 = hashlib.sha1()
+        BUF_SIZE = 65536
+        while True:
+            data = file.read(BUF_SIZE)
+            if not data:
+                break
+            sha1.update(data)
 
-    print(sha1.hexdigest())
-
-
-def get_stored_hash():
-    with open(path.abspath(path.join(__file__, "../../.servy"))) as hash_file:
-        return hash_file.read()
+        return sha1.hexdigest()
 
 
 def get_argument(args, value):
@@ -49,10 +50,29 @@ def get_argument(args, value):
     return next_val
 
 
-def main():
-    get_stored_hash()
-    # calculate_file_hash("storage.json")
+def display_loading_message(loading_message, finish_message):
+    global loaded
+    loaded = False
+    thread = threading.Thread(target=animate_loading,
+                              args=(loading_message, finish_message,))
+    thread.start()
 
 
-if __name__ == '__main__':
-    main()
+def animate_loading(loading_message, finish_message):
+    ss_loading = loading_message
+    while not loaded:
+        sys.stdout.write("\r" + ss_loading)
+        sys.stdout.flush()
+        ss_loading = ss_loading + "."
+        time.sleep(0.2)
+
+    if error is False:
+        print("\n" + finish_message)
+    else:
+        print("\n An error occured")
+
+
+def hide_loading_message(withError):
+    global loaded, error
+    loaded = True
+    error = withError

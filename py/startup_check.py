@@ -1,6 +1,8 @@
 import json
+from os import path
 from init import init_app
-from utils import calculate_file_hash, get_stored_hash
+from utils import calculate_file_hash
+
 
 def try_init(message):
     print(message)
@@ -11,22 +13,31 @@ def try_init(message):
         exit(1)
 
 
+def get_stored_hash():
+    try:
+        with open(path.abspath(path.join(__file__, "../../.servy"))) as hash_file:
+            return hash_file.read()
+    except FileNotFoundError:
+        raise ReferenceError
+
+
 def main():
     try:
-        with open("storage.json") as storage:
-            storage_json = json.load(storage)
-            
-            if calculate_file_hash(storage) != get_stored_hash():
-                raise EnvironmentError
+        with open("storage.json", "r") as storage:
+            if calculate_file_hash("storage.json") != get_stored_hash():
+                raise ValueError
 
+            storage_json = json.load(storage)
             if not storage_json['ss_name'] or not storage_json['shared_users']:
-                pass 
+                pass
     except FileNotFoundError:
         try_init("storage.json does not exist")
     except KeyError:
         try_init("storage.json is malformed")
-    except EnvironmentError:
+    except ValueError:
         try_init("storage.json was altered after app init")
+    except ReferenceError:
+        try_init(".servy config file is missing")
 
     try:
         with open("credentials.json") as credentials:

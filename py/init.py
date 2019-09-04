@@ -1,15 +1,21 @@
-# basically needs to question user for data
-# such as: ss_name and shared emails
-# also needs to calculate a hash and store it in a
-
 import re
 import json
+from utils import calculate_file_hash, display_loading_message, hide_loading_message
+from drive import create_worksheet
+
 
 def validate_email(email):
     email_regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
     if(re.search(email_regex, email)):
         return True
     return False
+
+
+def save_file_hash():
+    hash = calculate_file_hash("storage.json")
+
+    with open(".servy", "w+") as cfg:
+        cfg.write(hash)
 
 
 def init_app():
@@ -26,20 +32,31 @@ def init_app():
 
     storage['shared_users'] = []
     while True:
-        email = input("")
+        email = input("Insert email: ")
         if email:
             if validate_email(email):
                 storage['shared_users'].append(email)
             else:
                 print("Invalid email. Insert another.")
+        elif len(storage['shared_users']) == 0:
+            print("At least one email is required")
         else:
             break
-    
+
     with open('storage.json', 'w+') as storage_file:
         json.dump(storage, storage_file)
 
-    # calculate hash
-    # save it to a .servy file in .etc 
+    save_file_hash()
+    display_loading_message(
+        "Creating worksheet " + storage['ss_name'], "Created worksheet " + storage['ss_name'])
+
+    try:
+        create_worksheet()
+        hide_loading_message(False)
+    except Exception as e:
+        hide_loading_message(True)
+        print(e)
+
 
 def main():
     init_app()
