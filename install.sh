@@ -3,17 +3,17 @@
 #checks if python3 and venv are installed
 #if not, installs python3 and venv
 if command -v python3 &>/dev/null; then
-    echo Python 3 is installed
+    echo Python 3 is installed!
 else
-    echo Python 3 is now installing
+    echo python3 is now installing...
     sudo apt-get install python3
 fi
 
 
-if dpkg -s  python3-venv &> /dev/null; then
-    echo "Package python3-venv is installed!"
+if dpkg -s python3-venv &> /dev/null; then
+    echo Package python3-venv is installed!
 else
-    echo installing venv
+    echo python3-venv is now installing...
     sudo apt-get install python3-venv  
 fi
 
