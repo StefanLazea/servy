@@ -1,4 +1,5 @@
 #!/bin/bash
+
 #checks if python3 and venv are installed
 #if not, installs python3 and venv
 if command -v python3 &>/dev/null; then
@@ -27,5 +28,6 @@ pip3 install -r dependencies
 pip freeze
 
 #creates an alias for history to current_directory/./launch.sh as a static path
-#prints a welcome message
-#gg wp
+alias history='$PWD/./launch.sh'
+
+echo "Welcome to history-cli, $(whoami)!"
