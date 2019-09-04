@@ -1,9 +1,11 @@
 #!/bin/bash
-cmd=$1;
+
 source env/bin/activate
+cmd=$1;
 
 case $cmd in
     "write")
+        python py/startup_check.py || exit
         python py/write.py $@
         ;;
     "version")
