@@ -14,6 +14,9 @@ case $cmd in
     "help")
         echo "Halp pls"
         ;;
+    "init")
+        python py/init.py
+        ;;
     *)
         echo "Command not known"
         ;;

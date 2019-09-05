@@ -27,3 +27,9 @@ def create_worksheet():
     gc = gspread.authorize(get_credentials())
     sh = gc.create(get_spreadsheet_name())
     sh.share(get_shared_users(), perm_type='user', role='writer')
+
+
+def init_spreadsheet():
+    get_worksheet().update_cell(1, 1, 'User')
+    get_worksheet().update_cell(1, 2, 'Description')
+    get_worksheet().update_cell(1, 3, 'Date')
