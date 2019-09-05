@@ -51,7 +51,7 @@ def init_app():
         column = input("Insert column name: ")
         if column:
             storage['columns'].append(column)
-        elif len(storage['columns'])==0:
+        elif len(storage['columns']) == 0:
             print("At least one column name should be entered")
         else:
             break
