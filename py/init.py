@@ -1,8 +1,7 @@
 import re
 import json
 from utils import calculate_file_hash, display_loading_message, hide_loading_message
-from drive import create_worksheet, init_spreadsheet
-
+from drive import create_worksheet,  init_spreadsheet
 
 def validate_email(email):
     email_regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'

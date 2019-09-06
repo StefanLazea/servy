@@ -33,11 +33,14 @@ def init_spreadsheet():
     try:
         with open("storage.json", "r") as storage:
             storage_json = json.load(storage)
-            columns_number = len(storage_json['columns'])
             index = 1
             for column_name in storage_json['columns']:
                 if index <= len(storage_json['columns']):
                     get_worksheet().update_cell(1, index, column_name)
-                    index+=1
     except FileNotFoundError:
-        try_init("storage.json does not exist")
+        print("Something went wrong")
+
+
+def next_available_row():
+    str_list = list(filter(None, get_worksheet().col_values(1)))
+    return str(len(str_list)+1)

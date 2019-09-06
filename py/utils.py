@@ -3,6 +3,7 @@ import json
 import time
 import threading
 from os import path
+from datetime import date
 import hashlib
 
 loaded = True
@@ -76,3 +77,6 @@ def hide_loading_message(withError):
     global loaded, error
     loaded = True
     error = withError
+
+def get_date():
+    return date.today()
