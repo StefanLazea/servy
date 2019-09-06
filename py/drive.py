@@ -19,8 +19,9 @@ def get_worksheet():
         sh = gc.open(get_spreadsheet_name())
         return sh.sheet1
     except:
-        print("spreadsheet doesn't exist: creating new ss")
-        create_worksheet()
+        recreate = input("Spreadsheet doesn't exist. Do you want to create it? Y/N \n")
+        if recreate == "Y":
+            create_worksheet()
 
 
 def create_worksheet():
@@ -44,10 +45,11 @@ def next_available_row():
     return str(len(str_list)+1)
 
 
-def set_name_date(row, user):
-    get_worksheet().update_acell("A{}".format(row), user)
-    get_worksheet().update_acell("C{}".format(row), get_date())
-    
+def set_name_date(row, user, ws):
+    ws.update_acell("A{}".format(row), user)
+    ws.update_acell("C{}".format(row), get_date())
+
+
 def main():
     create_worksheet()
 
