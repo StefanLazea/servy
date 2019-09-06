@@ -43,19 +43,8 @@ def init_app():
         else:
             break
     
-    print("Insert main columns names that will be required in the spreadsheet")
-    print("When you want to finish, commit an empty input")
-
-    storage['columns'] = []
-    while True:
-        column = input("Insert column name: ")
-        if column:
-            storage['columns'].append(column)
-        elif len(storage['columns']) == 0:
-            print("At least one column name should be entered")
-        else:
-            break
-
+    storage['columns'] = ["User", "Message", "Date", "Description"]
+   
     with open('storage.json', 'w+') as storage_file:
         json.dump(storage, storage_file)
 
