@@ -19,7 +19,7 @@ def get_worksheet():
         sh = gc.open(get_spreadsheet_name())
         return sh.sheet1
     except:
-        print("failed to retrieve ss: create new")
+        print("spreadsheet doesn't exist: creating new ss")
         create_worksheet()
 
 
@@ -30,15 +30,13 @@ def create_worksheet():
 
 
 def init_spreadsheet():
-    try:
-        with open("storage.json", "r") as storage:
-            storage_json = json.load(storage)
-            index = 1
-            for column_name in storage_json['columns']:
-                if index <= len(storage_json['columns']):
-                    get_worksheet().update_cell(1, index, column_name)
-    except FileNotFoundError:
-        print("Something went wrong")
+    ws = get_worksheet()
+    ws.update_title(get_spreadsheet_name())
+    ws.update_cell(1, 1, "Nr.")
+    ws.update_cell(1, 2, "User")
+    ws.update_cell(1, 3, "Date")
+    ws.update_cell(1, 4, "Message")
+    ws.update_cell(1, 5, "Details")
 
 
 def next_available_row():
@@ -49,3 +47,10 @@ def next_available_row():
 def set_name_date(row, user):
     get_worksheet().update_acell("A{}".format(row), user)
     get_worksheet().update_acell("C{}".format(row), get_date())
+    
+def main():
+    create_worksheet()
+
+
+if __name__ == '__main__':
+    main()

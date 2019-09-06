@@ -6,7 +6,7 @@ cmd=$1;
 user=$(whoami)
 case $cmd in
     "write")
-        python py/startup_check.py || exit
+        python py/startup_check.py
         python py/write.py $@ $user
         ;;
     "version")

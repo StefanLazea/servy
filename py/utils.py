@@ -73,7 +73,7 @@ def animate_loading(loading_message, finish_message):
         print("\n An error occured")
 
 
-def hide_loading_message(withError):
+def hide_loading_message_with_error(withError):
     global loaded, error
     loaded = True
     error = withError
