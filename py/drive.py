@@ -1,7 +1,7 @@
 import gspread
 import json
 from oauth2client.service_account import ServiceAccountCredentials
-from utils import get_spreadsheet_name, get_shared_users
+from utils import get_spreadsheet_name, get_shared_users, get_date
 
 
 def get_credentials():
@@ -44,3 +44,8 @@ def init_spreadsheet():
 def next_available_row():
     str_list = list(filter(None, get_worksheet().col_values(1)))
     return str(len(str_list)+1)
+
+
+def set_name_date(row, user):
+    get_worksheet().update_acell("A{}".format(row), user)
+    get_worksheet().update_acell("C{}".format(row), get_date())

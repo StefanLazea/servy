@@ -3,7 +3,7 @@ import json
 import time
 import threading
 from os import path
-from datetime import date
+import datetime
 import hashlib
 
 loaded = True
@@ -79,4 +79,4 @@ def hide_loading_message(withError):
     error = withError
 
 def get_date():
-    return date.today()
+    return str(datetime.datetime.now())
