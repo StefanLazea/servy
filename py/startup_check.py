@@ -28,7 +28,7 @@ def main():
                 raise ValueError
 
             storage_json = json.load(storage)
-            if not storage_json['ss_name'] or not storage_json['shared_users'] or not storage_json['columns']:
+            if not storage_json['ss_name'] or not storage_json['shared_users']:
                 pass
     except FileNotFoundError:
         try_init("storage.json does not exist")
