@@ -27,7 +27,8 @@ pip3 install -r dependencies
 pip freeze
 
 #creates an alias for history to current_directory/./launch.sh as a static path
-echo "alias servy='source $(pwd)/launch.sh'" >> ~/.bashrc
+echo "alias servy='source $(pwd)/launch.sh'" >> /etc/bash.bashrc
+source /etc/bash.bashrc
 source ~/.bashrc
 
 echo "Welcome to history-cli, $(whoami)!"

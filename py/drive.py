@@ -33,21 +33,20 @@ def create_worksheet():
 def init_spreadsheet():
     ws = get_worksheet()
     ws.update_title(get_spreadsheet_name())
-    ws.update_cell(1, 1, "Nr.")
-    ws.update_cell(1, 2, "User")
-    ws.update_cell(1, 3, "Date")
-    ws.update_cell(1, 4, "Message")
-    ws.update_cell(1, 5, "Details")
+    ws.update_cell(1, 1, "User")
+    ws.update_cell(1, 2, "Date")
+    ws.update_cell(1, 3, "Message")
+    ws.update_cell(1, 4, "Details")
 
 
 def next_available_row():
-    str_list = list(filter(None, get_worksheet().col_values(1)))
+    str_list = list(filter(None, get_worksheet().col_values(2)))
     return str(len(str_list)+1)
 
 
 def set_name_date(row, user, ws):
     ws.update_acell("A{}".format(row), user)
-    ws.update_acell("C{}".format(row), get_date())
+    ws.update_acell("B{}".format(row), get_date())
 
 
 def main():

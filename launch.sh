@@ -11,7 +11,7 @@ case $cmd in
         ;;
     "write")
         python py/startup_check.py
-        python py/write.py $@ $user
+        python py/write.py $user $@
         ;;
     "version")
         python py/version.py
