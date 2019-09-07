@@ -1,6 +1,7 @@
 import sys
 import json
 import time
+import re
 import threading
 from os import path
 import datetime
@@ -18,11 +19,6 @@ def get_storage():
 def get_spreadsheet_name():
     storage = get_storage()
     return storage['ss_name']
-
-
-def get_shared_users():
-    storage = get_storage()
-    return storage['shared_users']
 
 
 def calculate_file_hash(file_name):
@@ -80,3 +76,16 @@ def hide_loading_message_with_error(withError):
 
 def get_date():
     return str(datetime.datetime.now())
+
+
+def validate_email(email):
+    email_regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
+    if(re.search(email_regex, email)):
+        return True
+    return False
+
+
+def save_file_hash():
+    hash = calculate_file_hash("storage.json")
+    with open(".servy", "w+") as cfg:
+        cfg.write(hash)

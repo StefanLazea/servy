@@ -1,22 +1,6 @@
-import re
 import json
-from utils import calculate_file_hash, display_loading_message, hide_loading_message_with_error
+from utils import calculate_file_hash, display_loading_message, hide_loading_message_with_error, save_file_hash, validate_email
 from drive import create_worksheet,  init_spreadsheet, get_worksheet
-
-
-def validate_email(email):
-    email_regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
-    if(re.search(email_regex, email)):
-        return True
-    return False
-
-
-def save_file_hash():
-    hash = calculate_file_hash("storage.json")
-
-    with open(".servy", "w+") as cfg:
-        cfg.write(hash)
-
 
 def init_app():
     print("Starting servy init process")
@@ -30,15 +14,16 @@ def init_app():
     print("Insert the email of the people you want to have access to the spreadsheet")
     print("When you want to finish, commit an empty input")
 
-    storage['shared_users'] = []
+    shared_users = []
     while True:
         email = input("Insert email: ")
         if email:
             if validate_email(email):
-                storage['shared_users'].append(email)
+                shared_users.append(email)
+                print(shared_users)
             else:
                 print("Invalid email. Insert another.")
-        elif len(storage['shared_users']) == 0:
+        elif len(shared_users) == 0:
             print("At least one email is required")
         else:
             break
@@ -59,7 +44,7 @@ def init_app():
         "Creating worksheet " + storage['ss_name'], "Created worksheet " + storage['ss_name'])
 
     try:
-        create_worksheet()
+        create_worksheet(shared_users)
         init_spreadsheet()
         hide_loading_message_with_error(False)
     except Exception as e:
