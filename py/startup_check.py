@@ -10,7 +10,7 @@ def try_init(message):
         init_app()
     else:
         print("servy was not initialized. closing now.")
-        exit(1)
+        exit()
 
 
 def get_stored_hash():
@@ -21,14 +21,14 @@ def get_stored_hash():
         raise ReferenceError
 
 
-def main():
+def startup_check():
     try:
         with open("storage.json", "r") as storage:
             if calculate_file_hash("storage.json") != get_stored_hash():
                 raise ValueError
 
             storage_json = json.load(storage)
-            if not storage_json['ss_name'] or not storage_json['shared_users']:
+            if not storage_json['ss_name']:
                 pass
     except FileNotFoundError:
         try_init("storage.json does not exist")
@@ -51,7 +51,3 @@ def main():
         print("credentials.json is missing. follow the docs to obtain one")
     except KeyError:
         print("credentials.json is malformed. ovewrite the current file")
-
-
-if __name__ == '__main__':
-    main()

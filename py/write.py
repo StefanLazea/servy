@@ -1,6 +1,9 @@
 import sys
 from utils import get_argument, get_date
 from drive import get_worksheet, next_available_row, set_name_date
+from startup_check import startup_check
+
+startup_check()
 
 ws = get_worksheet()
 user =  sys.argv[1]
