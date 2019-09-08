@@ -11,27 +11,10 @@ loaded = True
 error = False
 
 
-def get_storage():
-    storage = json.load(open("storage.json"))
-    return storage
-
-
 def get_spreadsheet_name():
-    storage = get_storage()
-    return storage['ss_name']
-
-
-def calculate_file_hash(file_name):
-    with open(file_name, "rb") as file:
-        sha1 = hashlib.sha1()
-        BUF_SIZE = 65536
-        while True:
-            data = file.read(BUF_SIZE)
-            if not data:
-                break
-            sha1.update(data)
-
-        return sha1.hexdigest()
+    with open("credentials.json", "rb") as credentials:
+        credentials_json = json.load(credentials)
+        return credentials_json["default_spreadsheet"]
 
 
 def get_argument(args, value):
@@ -64,7 +47,7 @@ def animate_loading(loading_message, finish_message):
         time.sleep(0.2)
 
     if error is False:
-        print("\n" + finish_message)
+        sys.stdout.write("\r" + finish_message + "\033[K\n")
     else:
         print("\n An error occured")
 
@@ -73,6 +56,7 @@ def hide_loading_message_with_error(withError):
     global loaded, error
     loaded = True
     error = withError
+
 
 def get_date():
     return str(datetime.datetime.now())
@@ -85,7 +69,7 @@ def validate_email(email):
     return False
 
 
-def save_file_hash():
-    hash = calculate_file_hash("storage.json")
-    with open(".servy", "w+") as cfg:
-        cfg.write(hash)
+def print_permissions(ss):
+    permissions = ss.list_permissions()
+    for user in permissions:
+        print(user['emailAddress'])

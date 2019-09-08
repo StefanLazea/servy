@@ -13,14 +13,13 @@ def get_credentials():
 
 def get_spreadsheet():
     gc = gspread.authorize(get_credentials())
-
     try:
         sh = gc.open(get_spreadsheet_name())
         return sh
     except:
         recreate = input("Spreadsheet doesn't exist. Do you want to create it? Y/N \n")
         if recreate == "Y":
-            create_worksheet([])
+            create_spreadsheet([])
 
 def get_worksheet():
     sh = get_spreadsheet()
@@ -31,13 +30,14 @@ def share_spreadsheet(sh, email):
     sh.share(email, perm_type='user', role='reader')
 
 
-def create_worksheet(shared_users):
+def create_spreadsheet(shared_user):
     gc = gspread.authorize(get_credentials())
     sh = gc.create(get_spreadsheet_name())
-    share_spreadsheet(sh, shared_users)
+    share_spreadsheet(sh, shared_user)
+    return sh.sheet1
 
-def init_spreadsheet():
-    ws = get_worksheet()
+
+def init_spreadsheet(ws):
     ws.update_title(get_spreadsheet_name())
     ws.update_cell(1, 1, "User")
     ws.update_cell(1, 2, "Date")

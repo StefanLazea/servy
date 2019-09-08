@@ -1,51 +1,49 @@
 import json
-from utils import calculate_file_hash, display_loading_message, hide_loading_message_with_error, save_file_hash, validate_email
-from drive import create_worksheet,  init_spreadsheet, get_worksheet
+from utils import display_loading_message, hide_loading_message_with_error, validate_email, print_permissions
+from drive import create_spreadsheet, init_spreadsheet, get_worksheet, get_spreadsheet
+
 
 def init_app():
     print("Starting servy init process")
     print("............................")
-    storage = {}
     while True:
-        storage['ss_name'] = input("Insert the spreadsheets name\n")
-        if storage['ss_name']:
-            break
+        default_spreadsheet = input("Insert the spreadsheets name\n")
+        if default_spreadsheet:
+            try:
+                with open("credentials.json", "r+") as credentials:
+                    credentials_json = json.load(credentials)
+                    credentials_json["default_spreadsheet"] = default_spreadsheet
+                    credentials.seek(0, 0)
+                    json.dump(credentials_json, credentials)
+                break
+            except FileNotFoundError:
+                print("credentials.json doesn't exist. follow the instructions")
+                exit()
 
-    print("Insert the email of the people you want to have access to the spreadsheet")
-    print("When you want to finish, commit an empty input")
+    ss = get_spreadsheet()
+    if ss.sheet1:
+        resume_ss = input(
+            "A spreadsheet with this name already exists. Do you want to use it? Y/N\n")
+        if(resume_ss == "Y"):
+            print("Spreadsheet in use: " + default_spreadsheet)
+            print("The following users has read permission to this file")
+            print_permissions(ss)
+            return
 
-    shared_users = []
+    print("Insert the email you want to have access to the spreadsheet")
     while True:
         email = input("Insert email: ")
         if email:
-            if validate_email(email):
-                shared_users.append(email)
-                print(shared_users)
+            if not validate_email(email):
+                print("Invalid email")
             else:
-                print("Invalid email. Insert another.")
-        elif len(shared_users) == 0:
-            print("At least one email is required")
-        else:
-            break
-
-    with open('storage.json', 'w+') as storage_file:
-        json.dump(storage, storage_file)
-
-    save_file_hash()
-
-    ss = get_worksheet()
-    if ss:
-        resume_ss = input("A spreadsheet with this name already exists. Do you want to use it?Y/N\n")
-        if(resume_ss == "Y"):
-            print("Skipped spreadsheet initialization")
-            return
+                break
 
     display_loading_message(
-        "Creating worksheet " + storage['ss_name'], "Created worksheet " + storage['ss_name'])
-
+        "Creating worksheet " + default_spreadsheet, "Created worksheet " + default_spreadsheet)
     try:
-        create_worksheet(shared_users)
-        init_spreadsheet()
+        ws = create_spreadsheet(email)
+        init_spreadsheet(ws)
         hide_loading_message_with_error(False)
     except Exception as e:
         hide_loading_message_with_error(True)

@@ -10,10 +10,10 @@ case $cmd in
         python py/init.py
         ;;
     "write")
-        python py/write.py $user $@
+        python py/write.py $user "$@"
         ;;
     "share")
-        python py/share.py $@
+        python py/share.py "$@"
         ;;
     "version")
         python py/version.py
