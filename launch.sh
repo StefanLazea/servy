@@ -12,6 +12,9 @@ case $cmd in
     "write")
         python py/write.py $user "$@"
         ;;
+    "read")
+        python py/read.py $user "$@"
+        ;;
     "share")
         python py/share.py "$@"
         ;;

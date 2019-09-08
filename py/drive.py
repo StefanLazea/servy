@@ -36,6 +36,9 @@ def create_spreadsheet(shared_user):
     share_spreadsheet(sh, shared_user)
     return sh.sheet1
 
+def delete_spreadsheet(ss):
+    gc = gspread.authorize(get_credentials())
+    gc.del_spreadsheet(ss.id)
 
 def init_spreadsheet(ws):
     ws.update_title(get_spreadsheet_name())
@@ -45,8 +48,8 @@ def init_spreadsheet(ws):
     ws.update_cell(1, 4, "Details")
 
 
-def next_available_row():
-    str_list = list(filter(None, get_worksheet().col_values(2)))
+def next_available_row(ws):
+    str_list = list(filter(None, ws.col_values(1)))
     return str(len(str_list)+1)
 
 
@@ -54,3 +57,27 @@ def set_name_date(row, user, ws):
     ws.update_acell("A{}".format(row), user)
     ws.update_acell("B{}".format(row), get_date())
 
+def get_all_rows(ws):
+    rows = ws.get_all_values
+    return rows
+
+def get_last_n_rows(ws, number):
+    last_row = int(next_available_row(ws)) - 1
+    starting_row = last_row - (number - 1) if last_row > number + 1 else 2
+    rows = ws.range('A' + str(starting_row) + ':D' + str(last_row))
+    rows.reverse()
+    index = 0
+
+    data_rows = []
+    while index < len(rows):
+        row = {}
+        row["nr"] = str(last_row)
+        row["user"] = rows[index+3].value
+        row["date"] = rows[index+2].value
+        row["message"] = rows[index+1].value
+        row["details"] = rows[index].value
+        data_rows.append(row)
+        index = index + 4
+        last_row = last_row - 1
+
+    return data_rows

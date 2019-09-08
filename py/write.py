@@ -4,12 +4,12 @@ from drive import get_worksheet, next_available_row, set_name_date
 from startup_check import startup_check
 
 startup_check()
-
-ws = get_worksheet()
 user = sys.argv[1]
-current_row = next_available_row()
+
 if "-m" in sys.argv:
     try:
+        ws = get_worksheet()
+        current_row = next_available_row(ws)
         display_loading_message("Saving message", "Message saved")
         message = get_argument(sys.argv, "-m")
         set_name_date(current_row, user, ws)

@@ -1,6 +1,6 @@
 import json
 from utils import display_loading_message, hide_loading_message_with_error, validate_email, print_permissions
-from drive import create_spreadsheet, init_spreadsheet, get_worksheet, get_spreadsheet
+from drive import create_spreadsheet, init_spreadsheet, get_worksheet, get_spreadsheet, delete_spreadsheet
 
 
 def init_app():
@@ -40,19 +40,13 @@ def init_app():
                 break
 
     display_loading_message(
-        "Creating worksheet " + default_spreadsheet, "Created worksheet " + default_spreadsheet)
+        "Creating spreadsheet " + default_spreadsheet, "Created spreadsheet " + default_spreadsheet)
     try:
+        if ss:
+            delete_spreadsheet(ss)
         ws = create_spreadsheet(email)
         init_spreadsheet(ws)
         hide_loading_message_with_error(False)
     except Exception as e:
         hide_loading_message_with_error(True)
         print(e)
-
-
-def main():
-    init_app()
-
-
-if __name__ == '__main__':
-    main()
