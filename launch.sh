@@ -22,10 +22,10 @@ case $cmd in
         python py/version.py
         ;;
     "help")
-        echo "Halp pls"
+        python py/help.py
         ;;
     *)
-        echo "servy - Command not known"
+        echo "servy - Command not known. Use 'servy help' for available commands!"
         ;;
 esac
 deactivate
