@@ -11,15 +11,15 @@ def get_credentials():
         'credentials.json', scope)
     return credentials
 
+
 def get_spreadsheet():
     gc = gspread.authorize(get_credentials())
     try:
         sh = gc.open(get_spreadsheet_name())
         return sh
     except:
-        recreate = input("Spreadsheet doesn't exist. Do you want to create it? Y/N \n")
-        if recreate == "Y":
-            create_spreadsheet([])
+        pass
+
 
 def get_worksheet():
     sh = get_spreadsheet()
@@ -36,9 +36,11 @@ def create_spreadsheet(shared_user):
     share_spreadsheet(sh, shared_user)
     return sh.sheet1
 
+
 def delete_spreadsheet(ss):
     gc = gspread.authorize(get_credentials())
     gc.del_spreadsheet(ss.id)
+
 
 def init_spreadsheet(ws):
     ws.update_title(get_spreadsheet_name())
@@ -57,13 +59,15 @@ def set_name_date(row, user, ws):
     ws.update_acell("A{}".format(row), user)
     ws.update_acell("B{}".format(row), get_date())
 
-def get_all_rows(ws):
-    rows = ws.get_all_values
-    return rows
 
 def get_last_n_rows(ws, number):
     last_row = int(next_available_row(ws)) - 1
-    starting_row = last_row - (number - 1) if last_row > number + 1 else 2
+
+    if number == -1:
+        starting_row = 2
+    else:
+        starting_row = last_row - (number - 1) if last_row > number + 1 else 2
+
     rows = ws.range('A' + str(starting_row) + ':D' + str(last_row))
     rows.reverse()
     index = 0
@@ -71,7 +75,7 @@ def get_last_n_rows(ws, number):
     data_rows = []
     while index < len(rows):
         row = {}
-        row["nr"] = str(last_row)
+        row["row"] = str(last_row)
         row["user"] = rows[index+3].value
         row["date"] = rows[index+2].value
         row["message"] = rows[index+1].value

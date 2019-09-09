@@ -50,3 +50,7 @@ def init_app():
     except Exception as e:
         hide_loading_message_with_error(True)
         print(e)
+
+
+if __name__ == '__main__':
+    init_app()

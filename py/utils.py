@@ -6,6 +6,7 @@ import threading
 from os import path
 import datetime
 import hashlib
+from colorama import Fore, Style
 
 loaded = True
 error = False
@@ -73,3 +74,20 @@ def print_permissions(ss):
     permissions = ss.list_permissions()
     for user in permissions:
         print(user['emailAddress'])
+
+
+def format_log(logs):
+    log_string = "\n"
+
+    for log in logs:
+        log_string += Fore.GREEN + "Message: " + log["message"] + "\n"
+        log_string += Fore.YELLOW + "User: " + log["user"] + "\n"
+        log_string += "Date: " + log["date"] + "\n"
+        log_string += "Row:" + log["row"] + "\n"
+
+        if log["details"]:
+            log_string += "Details: " + "\n\t" + log["details"] + "\n"
+
+        log_string += "\n"
+
+    return log_string
