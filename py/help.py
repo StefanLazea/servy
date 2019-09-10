@@ -18,7 +18,7 @@ Usage:
         Options:
             -a              Returns all rows from the spreadsheet.
             -n <number>     Given the <number> argument, it will return the exact number of rows.
-
+    servy change [options] | <message> | [options]
     servy version       Show version.
     servy help          You looking at it.
 """

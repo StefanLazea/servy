@@ -18,6 +18,9 @@ case $cmd in
     "share")
         python py/share.py "$@"
         ;;
+    "change")
+        python py/change.py "$@"
+        ;;
     "version")
         python py/version.py
         ;;
