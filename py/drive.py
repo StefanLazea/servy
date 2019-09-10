@@ -89,3 +89,14 @@ def get_last_n_rows(ws, number):
 
 def update_cell(worksheet, row, column, info):
     worksheet.update_cell(row, column, info)
+
+def get_users_last_row(ws, user):
+    rows = ws.findall(user)
+    if rows:
+        last_row = rows[-1].row
+        return last_row
+    else:
+        raise IndexError
+
+def delete_row(ws, row):
+    ws.delete_row(row)

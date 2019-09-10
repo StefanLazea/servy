@@ -10,7 +10,7 @@ from colorama import Fore, Style
 
 loaded = True
 error = False
-
+errorMessage = ""
 
 def get_spreadsheet_name():
     with open("credentials.json", "rb") as credentials:
@@ -46,17 +46,17 @@ def animate_loading(loading_message, finish_message):
         sys.stdout.flush()
         ss_loading = ss_loading + "."
         time.sleep(0.2)
-
     if error is False:
         sys.stdout.write("\r" + finish_message + "\033[K\n")
     else:
-        print("\n An error occured")
+        sys.stdout.write("\r" + errorMessage + "\033[K\n")
 
 
-def hide_loading_message_with_error(withError):
-    global loaded, error
+def hide_loading_message_with_error(withError, withMessage="An error occured"):
+    global loaded, error, errorMessage
     loaded = True
     error = withError
+    errorMessage = withMessage
 
 
 def get_date():

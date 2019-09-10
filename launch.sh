@@ -15,6 +15,9 @@ case $cmd in
     "read")
         python py/read.py $user "$@"
         ;;
+    "delete")
+        python py/delete.py $user "$@"
+        ;;
     "share")
         python py/share.py "$@"
         ;;
