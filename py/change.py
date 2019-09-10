@@ -25,29 +25,39 @@ def row_update(row):
     ws.update_cell(row, 3, message)
 
 
+def cell_update(worksheet, row, column, info):
+    worksheet.update_cell(row, column, info)
+
+
 previous_row = int(next_available_row(ws)) - 1
-check = 0
-if "-r" in sys.argv:
-    row_number = int(get_argument(sys.argv, "-r"))
-    if row_number and ws.row_values(row_number) != []:
-        try:
-            if row_number == -1 and "-m" in sys.argv:
-                row_update(previous_row)
-                check = 1
-            else:
+if "-m" in sys.argv:
+
+    if "-r" in sys.argv:
+        row_number = int(get_argument(sys.argv, "-r"))
+        if row_number and row_number >= 1:
+            try:
                 row_update(row_number)
-            hide_loading_message_with_error(False)
-        except:
-            hide_loading_message_with_error(True)
+                hide_loading_message_with_error(False)
+            except:
+                hide_loading_message_with_error(True)
+        else:
+            print("Invalid number for -r option")
     else:
-        print("The row " + str(row_number) + " is empty")
-elif "-m" in sys.argv and check == 0:
-    try:
         row_update(previous_row)
+
+    try:
         if "-d" in sys.argv:
             update_date(previous_row, 2)
         hide_loading_message_with_error(False)
     except:
         hide_loading_message_with_error(True)
+
+    # try:
+    #     if "-d" in sys.argv:
+    #         update_date(previous_row, 2)
+    #     hide_loading_message_with_error(False)
+    # except:
+    #     hide_loading_message_with_error(True)
+
 else:
     print("A message argument should be specified")
