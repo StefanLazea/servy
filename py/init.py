@@ -15,16 +15,17 @@ def init_app():
                     credentials_json["default_spreadsheet"] = default_spreadsheet
                     credentials.seek(0, 0)
                     json.dump(credentials_json, credentials)
+                    credentials.truncate()
                 break
             except FileNotFoundError:
                 print("credentials.json doesn't exist. follow the instructions")
                 exit()
 
     ss = get_spreadsheet()
-    if ss.sheet1:
+    if ss and ss.sheet1:
         resume_ss = input(
             "A spreadsheet with this name already exists. Do you want to use it? Y/N\n")
-        if(resume_ss == "Y"):
+        if resume_ss == "Y":
             print("Spreadsheet in use: " + default_spreadsheet)
             print("The following users has read permission to this file")
             print_permissions(ss)

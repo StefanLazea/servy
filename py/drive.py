@@ -52,7 +52,7 @@ def init_spreadsheet(ws):
 
 def next_available_row(ws):
     str_list = list(filter(None, ws.col_values(1)))
-    return str(len(str_list)+1)
+    return str(len(str_list) + 1)
 
 
 def set_name_date(row, user, ws):
@@ -76,9 +76,9 @@ def get_last_n_rows(ws, number):
     while index < len(rows):
         row = {}
         row["row"] = str(last_row)
-        row["user"] = rows[index+3].value
-        row["date"] = rows[index+2].value
-        row["message"] = rows[index+1].value
+        row["user"] = rows[index + 3].value
+        row["date"] = rows[index + 2].value
+        row["message"] = rows[index + 1].value
         row["details"] = rows[index].value
         data_rows.append(row)
         index = index + 4
