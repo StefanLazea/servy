@@ -85,3 +85,7 @@ def get_last_n_rows(ws, number):
         last_row = last_row - 1
 
     return data_rows
+
+
+def cell_update(worksheet, row, column, info):
+    worksheet.update_cell(row, column, info)
