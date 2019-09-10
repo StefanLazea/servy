@@ -22,7 +22,7 @@ case $cmd in
         python py/share.py "$@"
         ;;
     "change")
-        python py/change.py "$@"
+        python py/change.py $user "$@"
         ;;
     "version")
         python py/version.py

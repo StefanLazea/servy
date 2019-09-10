@@ -87,8 +87,9 @@ def get_last_n_rows(ws, number):
     return data_rows
 
 
-def update_cell(worksheet, row, column, info):
-    worksheet.update_cell(row, column, info)
+def update_cell(ws, row, column, info):
+    ws.update_cell(row, column, info)
+
 
 def get_users_last_row(ws, user):
     rows = ws.findall(user)
@@ -98,5 +99,15 @@ def get_users_last_row(ws, user):
     else:
         raise IndexError
 
+
 def delete_row(ws, row):
     ws.delete_row(row)
+
+
+def update_row(ws, stored_row, row_number):
+    cell_list = ws.range('A' + str(row_number) + ':D' + str(row_number))
+    for i, val in enumerate(stored_row):
+        cell_list[i].value = val
+        # print(cell_list[i].value)
+        # print(i)
+    ws.update_cells(cell_list)
