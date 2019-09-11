@@ -12,6 +12,7 @@ loaded = True
 error = False
 errorMessage = ""
 
+
 def get_spreadsheet_name():
     with open("credentials.json", "rb") as credentials:
         credentials_json = json.load(credentials)
@@ -91,3 +92,6 @@ def format_log(logs):
         log_string += "\n"
 
     return log_string
+
+def write_error(message):
+    print(Fore.RED + message)
