@@ -1,7 +1,21 @@
 import gspread
-import json
 from oauth2client.service_account import ServiceAccountCredentials
 from utils import get_spreadsheet_name, get_date
+
+
+def create_spreadsheet(shared_user):
+    gc = gspread.authorize(get_credentials())
+    sh = gc.create(get_spreadsheet_name())
+    share_spreadsheet(sh, shared_user)
+    return sh.sheet1
+
+
+def init_spreadsheet(ws):
+    ws.update_title(get_spreadsheet_name())
+    ws.update_cell(1, 1, "User")
+    ws.update_cell(1, 2, "Date")
+    ws.update_cell(1, 3, "Message")
+    ws.update_cell(1, 4, "Details")
 
 
 def get_credentials():
@@ -26,38 +40,18 @@ def get_worksheet():
     return sh.sheet1
 
 
-def share_spreadsheet(sh, email):
-    sh.share(email, perm_type='user', role='reader')
-
-
-def create_spreadsheet(shared_user):
-    gc = gspread.authorize(get_credentials())
-    sh = gc.create(get_spreadsheet_name())
-    share_spreadsheet(sh, shared_user)
-    return sh.sheet1
-
-
-def delete_spreadsheet(ss):
-    gc = gspread.authorize(get_credentials())
-    gc.del_spreadsheet(ss.id)
-
-
-def init_spreadsheet(ws):
-    ws.update_title(get_spreadsheet_name())
-    ws.update_cell(1, 1, "User")
-    ws.update_cell(1, 2, "Date")
-    ws.update_cell(1, 3, "Message")
-    ws.update_cell(1, 4, "Details")
-
-
 def next_available_row(ws):
     str_list = list(filter(None, ws.col_values(1)))
     return str(len(str_list) + 1)
 
 
-def set_name_date(row, user, ws):
-    ws.update_acell("A{}".format(row), user)
-    ws.update_acell("B{}".format(row), get_date())
+def get_users_last_row(ws, user):
+    rows = ws.findall(user)
+    if rows:
+        last_row = rows[-1].row
+        return last_row
+    else:
+        raise IndexError
 
 
 def get_last_n_rows(ws, number):
@@ -87,27 +81,30 @@ def get_last_n_rows(ws, number):
     return data_rows
 
 
+def share_spreadsheet(sh, email):
+    sh.share(email, perm_type='user', role='reader')
+
+
+def set_name_date(row, user, ws):
+    ws.update_acell("A{}".format(row), user)
+    ws.update_acell("B{}".format(row), get_date())
+
+
 def update_cell(ws, row, column, info):
     ws.update_cell(row, column, info)
-
-
-def get_users_last_row(ws, user):
-    rows = ws.findall(user)
-    if rows:
-        last_row = rows[-1].row
-        return last_row
-    else:
-        raise IndexError
-
-
-def delete_row(ws, row):
-    ws.delete_row(row)
 
 
 def update_row(ws, stored_row, row_number):
     cell_list = ws.range('A' + str(row_number) + ':D' + str(row_number))
     for i, val in enumerate(stored_row):
         cell_list[i].value = val
-        # print(cell_list[i].value)
-        # print(i)
     ws.update_cells(cell_list)
+
+
+def delete_spreadsheet(ss):
+    gc = gspread.authorize(get_credentials())
+    gc.del_spreadsheet(ss.id)
+
+
+def delete_row(ws, row):
+    ws.delete_row(row)

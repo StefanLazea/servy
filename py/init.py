@@ -54,4 +54,7 @@ def init_app():
 
 
 if __name__ == '__main__':
-    init_app()
+    try:
+        init_app()
+    except KeyboardInterrupt:
+        print("\n")

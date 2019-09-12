@@ -1,10 +1,10 @@
-import json
+from json import load
 from os import path
 from init import init_app
-
+from utils import write_error
 
 def try_init(message):
-    print(message)
+    write_error(message)
     if input("Do you want to init the app now? Y/N \n") == "Y":
         init_app()
     else:
@@ -14,7 +14,7 @@ def try_init(message):
 def startup_check():
     try:
         with open("credentials.json") as credentials:
-            credentials_json = json.load(credentials)
+            credentials_json = load(credentials)
             if not credentials_json['type'] or not credentials_json["project_id"] or not credentials_json["token_uri"] \
                     or not credentials_json['private_key_id'] or not credentials_json["private_key"] \
                     or not credentials_json['client_email'] or not credentials_json["auth_uri"] \

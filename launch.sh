@@ -2,9 +2,10 @@
 
 script_path=$(alias servy | grep -o -P '(?<=source ).*(?=/launch.sh)')
 source "${script_path}/env/bin/activate"
-cmd=$1;
 
+cmd=$1;
 user=$(whoami)
+
 case $cmd in
     "init")
         python py/init.py
@@ -16,7 +17,7 @@ case $cmd in
         python py/read.py $user "$@"
         ;;
     "delete")
-        python py/delete.py $user "$@"
+        python py/delete.py $user $EUID "$@"
         ;;
     "share")
         python py/share.py "$@"

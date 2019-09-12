@@ -32,6 +32,37 @@ def get_argument(args, value):
     return next_val
 
 
+def get_date():
+    return str(datetime.datetime.now())
+
+
+def print_permissions(ss):
+    permissions = ss.list_permissions()
+    for user in permissions:
+        print(user['emailAddress'])
+
+
+def write_error(message):
+    print(Fore.RED + message + Style.RESET_ALL)
+
+
+def format_log(logs):
+    log_string = "\n"
+
+    for log in logs:
+        log_string += Fore.GREEN + "Message: " + log["message"] + "\n"
+        log_string += Fore.YELLOW + "User: " + log["user"] + "\n"
+        log_string += "Date: " + log["date"] + "\n"
+        log_string += "Row:" + log["row"] + "\n"
+
+        if log["details"]:
+            log_string += "Details: " + "\n\t" + log["details"] + "\n"
+
+        log_string += "\n"
+
+    return log_string
+
+
 def display_loading_message(loading_message, finish_message):
     global loaded
     loaded = False
@@ -60,38 +91,8 @@ def hide_loading_message_with_error(withError, withMessage="An error occured"):
     errorMessage = withMessage
 
 
-def get_date():
-    return str(datetime.datetime.now())
-
-
 def validate_email(email):
     email_regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
     if(re.search(email_regex, email)):
         return True
     return False
-
-
-def print_permissions(ss):
-    permissions = ss.list_permissions()
-    for user in permissions:
-        print(user['emailAddress'])
-
-
-def format_log(logs):
-    log_string = "\n"
-
-    for log in logs:
-        log_string += Fore.GREEN + "Message: " + log["message"] + "\n"
-        log_string += Fore.YELLOW + "User: " + log["user"] + "\n"
-        log_string += "Date: " + log["date"] + "\n"
-        log_string += "Row:" + log["row"] + "\n"
-
-        if log["details"]:
-            log_string += "Details: " + "\n\t" + log["details"] + "\n"
-
-        log_string += "\n"
-
-    return log_string
-
-def write_error(message):
-    print(Fore.RED + message)

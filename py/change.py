@@ -1,5 +1,4 @@
 import sys
-import gspread
 from utils import get_argument, get_date, display_loading_message, hide_loading_message_with_error, write_error
 from drive import get_worksheet, next_available_row, update_cell, get_users_last_row, update_row
 from startup_check import startup_check

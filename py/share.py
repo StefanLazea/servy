@@ -1,9 +1,7 @@
 import sys
-import json
-from utils import validate_email, get_argument, print_permissions
+from utils import validate_email, get_argument, print_permissions, display_loading_message, hide_loading_message_with_error, write_error
 from drive import get_spreadsheet, share_spreadsheet
 from startup_check import startup_check
-
 
 
 startup_check()
@@ -14,14 +12,24 @@ if "-l" in sys.argv:
 elif "-a" in sys.argv:
     email = get_argument(sys.argv, "-a")
     if validate_email(email):
-        ss = get_spreadsheet()
-        share_spreadsheet(ss, email)
+        try:
+            display_loading_message("Adding permission", "Permission added")
+            ss = get_spreadsheet()
+            share_spreadsheet(ss, email)
+            hide_loading_message_with_error(False)
+        except:
+            hide_loading_message_with_error(True)
     else:
-        print("Invalid email: " + email)
+        write_error("Invalid email: " + email)
 elif "-d" in sys.argv:
     email = get_argument(sys.argv, "-d")
     if validate_email(email):
-        ss = get_spreadsheet()
-        ss.remove_permissions(email)
+        try:
+            display_loading_message("Removing permission", "Permission removed")
+            ss = get_spreadsheet()
+            ss.remove_permissions(email)
+            hide_loading_message_with_error(False)
+        except:
+            hide_loading_message_with_error(True)
     else:
-        print("Invalid email: " + email)
+        write_error("Invalid email: " + email)

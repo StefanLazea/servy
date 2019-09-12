@@ -1,5 +1,5 @@
 import sys
-from utils import get_argument, get_date, display_loading_message, hide_loading_message_with_error
+from utils import get_argument, display_loading_message, hide_loading_message_with_error
 from drive import get_worksheet, next_available_row, set_name_date
 from startup_check import startup_check
 
