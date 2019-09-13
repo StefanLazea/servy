@@ -26,13 +26,15 @@ def switch(arg):
         elif command == "help":
             help_command()
         elif command == "delete":
-            delete_command(user)
+            delete_command(user, is_sudo)
 
     except KeyboardInterrupt:
         print("\n")
 
 
-user = sys.argv[1]
+user = sys.argv[2]
+is_sudo = sys.argv[1]
+
 if __name__ == "__main__":
-    command = sys.argv[2]
+    command = sys.argv[3]
     switch(command)
