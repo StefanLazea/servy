@@ -22,4 +22,7 @@ Usage:
     servy version       Show version.
     servy help          You looking at it.
 """
-print(__doc__)
+
+
+def help_command():
+    print(__doc__)

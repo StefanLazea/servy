@@ -9,4 +9,7 @@
 Developed with ❤ ©SiSC 2019
 hit us on github @axbg @StefanLazea
 """
-print(__doc__)
+
+
+def version_command():
+    print(__doc__)
