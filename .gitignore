@@ -3,6 +3,4 @@ env
 credentials.json
 __pycache__
 .vscode
-storage.json
-.servy
 *.pyc
