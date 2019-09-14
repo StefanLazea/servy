@@ -1,12 +1,12 @@
 import sys
-import json
-import time
-import re
-import threading
-from os import path
 import datetime
-import hashlib
+from json import load
+from time import sleep
+from re import search
+from threading import Thread
+from os import path
 from colorama import Fore, Style
+
 
 loaded = True
 error = False
@@ -15,7 +15,7 @@ errorMessage = ""
 
 def get_spreadsheet_name():
     with open("credentials.json", "rb") as credentials:
-        credentials_json = json.load(credentials)
+        credentials_json = load(credentials)
         return credentials_json["default_spreadsheet"]
 
 
@@ -26,8 +26,8 @@ def get_argument(args, value):
         next_val = None
 
     if(not next_val or "-" in next_val):
-        print("Argument not valid after " + value)
-        sys.exit()
+        write_error("Argument not valid after " + value)
+        exit()
 
     return next_val
 
@@ -39,7 +39,7 @@ def get_date():
 def print_permissions(ss):
     permissions = ss.list_permissions()
     for user in permissions:
-        print(user['emailAddress'])
+        print(user["emailAddress"])
 
 
 def write_error(message):
@@ -66,8 +66,8 @@ def format_log(logs):
 def display_loading_message(loading_message, finish_message):
     global loaded
     loaded = False
-    thread = threading.Thread(target=animate_loading,
-                              args=(loading_message, finish_message,))
+    thread = Thread(target=animate_loading,
+                    args=(loading_message, finish_message,))
     thread.start()
 
 
@@ -77,7 +77,7 @@ def animate_loading(loading_message, finish_message):
         sys.stdout.write("\r" + ss_loading)
         sys.stdout.flush()
         ss_loading = ss_loading + "."
-        time.sleep(0.2)
+        sleep(0.2)
     if error is False:
         sys.stdout.write("\r" + finish_message + "\033[K\n")
     else:
@@ -92,7 +92,7 @@ def hide_loading_message_with_error(withError, withMessage="An error occured"):
 
 
 def validate_email(email):
-    email_regex = '^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$'
-    if(re.search(email_regex, email)):
+    email_regex = "^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+    if(search(email_regex, email)):
         return True
     return False

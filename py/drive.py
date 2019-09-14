@@ -19,10 +19,10 @@ def init_spreadsheet(ws):
 
 
 def get_credentials():
-    scope = ['https://spreadsheets.google.com/feeds',
-             'https://www.googleapis.com/auth/drive']
+    scope = ["https://spreadsheets.google.com/feeds",
+             "https://www.googleapis.com/auth/drive"]
     credentials = ServiceAccountCredentials.from_json_keyfile_name(
-        'credentials.json', scope)
+        "credentials.json", scope)
     return credentials
 
 
@@ -62,7 +62,7 @@ def get_last_n_rows(ws, number):
     else:
         starting_row = last_row - (number - 1) if last_row > number + 1 else 2
 
-    rows = ws.range('A' + str(starting_row) + ':D' + str(last_row))
+    rows = ws.range("A" + str(starting_row) + ":D" + str(last_row))
     rows.reverse()
     index = 0
 
@@ -82,7 +82,7 @@ def get_last_n_rows(ws, number):
 
 
 def share_spreadsheet(sh, email):
-    sh.share(email, perm_type='user', role='reader')
+    sh.share(email, perm_type="user", role="reader")
 
 
 def set_name_date(row, user, ws):
@@ -95,7 +95,7 @@ def update_cell(ws, row, column, info):
 
 
 def update_row(ws, stored_row, row_number):
-    cell_list = ws.range('A' + str(row_number) + ':D' + str(row_number))
+    cell_list = ws.range("A" + str(row_number) + ":D" + str(row_number))
     for i, val in enumerate(stored_row):
         cell_list[i].value = val
     ws.update_cells(cell_list)

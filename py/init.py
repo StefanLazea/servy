@@ -1,5 +1,5 @@
 import json
-from utils import display_loading_message, hide_loading_message_with_error, validate_email, print_permissions
+from utils import display_loading_message, hide_loading_message_with_error, validate_email, print_permissions, write_error
 from drive import create_spreadsheet, init_spreadsheet, get_worksheet, get_spreadsheet, delete_spreadsheet
 
 
@@ -18,8 +18,7 @@ def init_app():
                     credentials.truncate()
                 break
             except FileNotFoundError:
-                print("credentials.json doesn't exist. follow the instructions")
-                exit()
+                write_error("credentials.json is not present: check the README")
 
     ss = get_spreadsheet()
     if ss and ss.sheet1:
@@ -36,7 +35,7 @@ def init_app():
         email = input("Insert email: ")
         if email:
             if not validate_email(email):
-                print("Invalid email")
+                write_error("Invalid email")
             else:
                 break
 
@@ -48,12 +47,11 @@ def init_app():
         ws = create_spreadsheet(email)
         init_spreadsheet(ws)
         hide_loading_message_with_error(False)
-    except Exception as e:
+    except Exception:
         hide_loading_message_with_error(True)
-        print(e)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     try:
         init_app()
     except KeyboardInterrupt:

@@ -1,9 +1,6 @@
 import sys
 from utils import get_argument, get_date, display_loading_message, hide_loading_message_with_error, write_error
-from drive import get_worksheet, next_available_row, update_cell, get_users_last_row, update_row
-from startup_check import startup_check
-
-startup_check()
+from drive import get_worksheet, get_users_last_row, update_row
 
 
 def change_command(user):
@@ -28,7 +25,8 @@ def change_command(user):
 
         display_loading_message("Updating info", "Information updated")
         new_date = get_date() if "-d" in sys.argv else stored_row[1]
-        new_message = get_argument(sys.argv, "-m") if "-m" in sys.argv else stored_row[2]
+        new_message = get_argument(
+            sys.argv, "-m") if "-m" in sys.argv else stored_row[2]
         new_description = get_argument(sys.argv, "-t") if "-t" in sys.argv else stored_row[3] \
             if len(stored_row) >= 4 else ""
 
@@ -36,6 +34,6 @@ def change_command(user):
         update_row(ws, stored_row, row_number)
 
         hide_loading_message_with_error(False)
-    except Exception as e:
-        print(e)
+    except Exception:
         hide_loading_message_with_error(True)
+        exit()

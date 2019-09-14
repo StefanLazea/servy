@@ -15,11 +15,11 @@ def startup_check():
     try:
         with open("credentials.json") as credentials:
             credentials_json = load(credentials)
-            if not credentials_json['type'] or not credentials_json["project_id"] or not credentials_json["token_uri"] \
-                    or not credentials_json['private_key_id'] or not credentials_json["private_key"] \
-                    or not credentials_json['client_email'] or not credentials_json["auth_uri"] \
-                    or not credentials_json['client_x509_cert_url'] or not credentials_json["auth_provider_x509_cert_url"] \
-                    or not credentials_json['default_spreadsheet']:
+            if not credentials_json["type"] or not credentials_json["project_id"] or not credentials_json["token_uri"] \
+                    or not credentials_json["private_key_id"] or not credentials_json["private_key"] \
+                    or not credentials_json["client_email"] or not credentials_json["auth_uri"] \
+                    or not credentials_json["client_x509_cert_url"] or not credentials_json["auth_provider_x509_cert_url"] \
+                    or not credentials_json["default_spreadsheet"]:
                 pass
     except FileNotFoundError:
         try_init("credentials.json is missing.")

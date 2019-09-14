@@ -1,9 +1,6 @@
 import sys
-from utils import get_argument, display_loading_message, hide_loading_message_with_error
+from utils import get_argument, display_loading_message, hide_loading_message_with_error, write_error
 from drive import get_worksheet, next_available_row, set_name_date
-from startup_check import startup_check
-
-startup_check()
 
 
 def write_command(user):
@@ -21,7 +18,7 @@ def write_command(user):
                 ws.update_acell("D{}".format(current_row), description)
 
             hide_loading_message_with_error(False)
-        except:
+        except Exception:
             hide_loading_message_with_error(True)
     else:
-        print("A message argument should be specified")
+        write_error("A message argument should be specified")

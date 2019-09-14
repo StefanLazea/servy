@@ -1,10 +1,6 @@
 import sys
 from utils import validate_email, get_argument, print_permissions, display_loading_message, hide_loading_message_with_error, write_error
 from drive import get_spreadsheet, share_spreadsheet
-from startup_check import startup_check
-
-
-startup_check()
 
 
 def share_command():
@@ -19,7 +15,7 @@ def share_command():
                 ss = get_spreadsheet()
                 share_spreadsheet(ss, email)
                 hide_loading_message_with_error(False)
-            except:
+            except Exception:
                 hide_loading_message_with_error(True)
         else:
             write_error("Invalid email: " + email)
@@ -31,7 +27,7 @@ def share_command():
                 ss = get_spreadsheet()
                 ss.remove_permissions(email)
                 hide_loading_message_with_error(False)
-            except:
+            except Exception:
                 hide_loading_message_with_error(True)
         else:
             write_error("Invalid email: " + email)
