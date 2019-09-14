@@ -5,7 +5,7 @@
 |___/\___|_|    \_/  \__, |
                       __/ |
                      |___/ 
--------version 0.0.1--------
+-------version 1.0.0--------
 Developed with ❤ ©SiSC 2019
 hit us on github @axbg @StefanLazea
 """
