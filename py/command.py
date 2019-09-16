@@ -41,6 +41,8 @@ def switch(command, user, is_sudo):
 if __name__ == "__main__":
     is_sudo = sys.argv[1]
     user = sys.argv[2]
-    command = sys.argv[3]
-
-    switch(command, user, is_sudo)
+    if len(sys.argv) >= 4:
+        command = sys.argv[3]
+        switch(command, user, is_sudo)
+    else: 
+        print("Please type a command. For further informations use `servy help`.")
