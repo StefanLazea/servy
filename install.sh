@@ -24,10 +24,10 @@ source env/bin/activate
 
 #installs the dependencies from the "dependencies" file using pip
 pip3 install -r dependencies 
-pip freeze
+pip3 freeze
 
 #creates an alias for history to current_directory/./launch.sh as a static path
-echo "alias servy='$(pwd)/./launch.sh'" >> ~/.bashrc
+echo "alias servy='source $(pwd)/launch.sh'" >> ~/.bashrc
 source ~/.bashrc
 
 echo "Welcome to history-cli, $(whoami)!"
