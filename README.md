@@ -6,7 +6,7 @@
 ## Installation
 1. clone this repo
 2. run "source ./install.sh"
-    In case you want `servy` alias to be available for every user, run:
+    In case you want `servy` alias to be available for every user in your system, run:
         ```sudo echo "alias servy='source $(pwd)/launch.sh'" >> /etc/bash.bashrc```
 3. run "servy version" to check if the installation succeeded
 4. [create a Google Cloud Platform project and download the generated credentials json](https://gspread.readthedocs.io/en/latest/oauth2.html) - *follow only the first 3 steps*
