@@ -23,7 +23,7 @@ python3 -m venv env --clear
 source env/bin/activate
 
 #installs the dependencies from the "dependencies" file using pip
-pip3 install -r dependencies 
+pip3 install -r requirements.txt
 pip3 freeze
 
 #creates an alias for history to current_directory/./launch.sh as a static path

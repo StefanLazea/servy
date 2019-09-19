@@ -1,4 +1,5 @@
 import json
+import os
 from utils import display_loading_message, hide_loading_message_with_error, validate_email, print_permissions, write_error
 from drive import create_spreadsheet, init_spreadsheet, get_worksheet, get_spreadsheet, delete_spreadsheet
 
@@ -18,8 +19,10 @@ def init_app():
                     credentials.truncate()
                 break
             except FileNotFoundError:
-                write_error("credentials.json is not present: check the README")
-                exit()
+                print("'credentials.json' does not exists. Please provide the content in order to create it:")
+                os.mknod("credentials.json")
+                filename = "vi credentials.json"
+                os.system(filename)    
 
     ss = get_spreadsheet()
     if ss and ss.sheet1:
