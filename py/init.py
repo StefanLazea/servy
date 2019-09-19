@@ -19,6 +19,7 @@ def init_app():
                 break
             except FileNotFoundError:
                 write_error("credentials.json is not present: check the README")
+                exit()
 
     ss = get_spreadsheet()
     if ss and ss.sheet1:
