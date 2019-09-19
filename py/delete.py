@@ -1,6 +1,6 @@
 import sys
-from utils import get_argument, display_loading_message, hide_loading_message_with_error, write_error
-from drive import get_users_last_row, get_worksheet, delete_row
+from .utils import get_argument, display_loading_message, hide_loading_message_with_error, write_error
+from .drive import get_users_last_row, get_worksheet, delete_row
 
 
 def delete_command(user, is_sudo):

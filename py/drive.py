@@ -1,6 +1,6 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-from utils import get_spreadsheet_name, get_date, get_credentials_path
+from .utils import get_spreadsheet_name, get_date, get_credentials_path
 
 
 def create_spreadsheet(shared_user):

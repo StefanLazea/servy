@@ -1,7 +1,7 @@
 from json import load
 from os import path
-from init import init_app
-from utils import write_error, get_credentials_path
+from .init import init_app
+from .utils import write_error, get_credentials_path
 
 
 def try_init(message):

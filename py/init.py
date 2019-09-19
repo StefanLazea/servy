@@ -1,8 +1,8 @@
 from json import load, dump, decoder
 from os import system
-from reset import reset_command
-from utils import display_loading_message, hide_loading_message_with_error, validate_email, print_permissions, write_error, get_credentials_path
-from drive import create_spreadsheet, init_spreadsheet, get_worksheet, get_spreadsheet, delete_spreadsheet
+from .reset import reset_command
+from .utils import display_loading_message, hide_loading_message_with_error, validate_email, print_permissions, write_error, get_credentials_path
+from .drive import create_spreadsheet, init_spreadsheet, get_worksheet, get_spreadsheet, delete_spreadsheet
 
 
 def append_default_spreadsheet(credentials_path, default_spreadsheet):

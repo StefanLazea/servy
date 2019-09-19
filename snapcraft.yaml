@@ -1,0 +1,23 @@
+name: servy
+version: '1.0.2'
+summary: your ultimate cli action tracking app
+description: |
+  servy is a CLI app written in python & bash that 
+  helps a team to keep a clean history of its actions without leaving the terminal
+
+grade: stable
+confinement: strict
+base: core18
+
+apps:
+  servy:
+    command: servy
+    plugs: [network]
+    
+parts:
+  servy:
+    source: .
+    plugin: python
+    python-version: python3
+    requirements: 
+      - requirements.txt

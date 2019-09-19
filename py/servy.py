@@ -1,15 +1,15 @@
 import sys
-from init import init_app
-from help import help_command
-from write import write_command
-from read import read_command
-from share import share_command
-from version import version_command
-from change import change_command
-from delete import delete_command
-from utils import hide_loading_message_with_error, write_error
-from startup_check import startup_check
-from reset import reset_command
+from .init import init_app
+from .help import help_command
+from .write import write_command
+from .read import read_command
+from .share import share_command
+from .version import version_command
+from .change import change_command
+from .delete import delete_command
+from .utils import hide_loading_message_with_error, write_error
+from .startup_check import startup_check
+from .reset import reset_command
 
 
 def switch(command, user, is_sudo):
@@ -43,11 +43,11 @@ def switch(command, user, is_sudo):
         hide_loading_message_with_error(True, "\n")
 
 
-if __name__ == "__main__":
-    is_sudo = sys.argv[1]
-    user = sys.argv[2]
-    if len(sys.argv) >= 4:
-        command = sys.argv[3]
+def main():
+    is_sudo = geteuid()
+    user = getpwuid(getuid()).pw_name
+    if len(sys.argv) >= 2:
+        command = sys.argv[1]
         switch(command, user, is_sudo)
     else: 
         print("Please type a command. For further informations use `servy help`")

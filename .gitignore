@@ -3,4 +3,5 @@ env
 __pycache__
 .vscode
 *.pyc
-credentials.json
+prime
+*.snap

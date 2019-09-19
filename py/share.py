@@ -1,6 +1,6 @@
 import sys
-from utils import validate_email, get_argument, print_permissions, display_loading_message, hide_loading_message_with_error, write_error
-from drive import get_spreadsheet, share_spreadsheet
+from .utils import validate_email, get_argument, print_permissions, display_loading_message, hide_loading_message_with_error, write_error
+from .drive import get_spreadsheet, share_spreadsheet
 
 
 def share_command():

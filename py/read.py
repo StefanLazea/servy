@@ -1,7 +1,7 @@
 import sys
 import pydoc
-from drive import get_worksheet, get_last_n_rows
-from utils import get_argument, format_log, write_error, display_loading_message, hide_loading_message_with_error
+from .drive import get_worksheet, get_last_n_rows
+from .utils import get_argument, format_log, write_error, display_loading_message, hide_loading_message_with_error
 
 
 def read_command():

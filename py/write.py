@@ -1,6 +1,6 @@
 import sys
-from utils import get_argument, display_loading_message, hide_loading_message_with_error, write_error
-from drive import get_worksheet, next_available_row, set_name_date
+from .utils import get_argument, display_loading_message, hide_loading_message_with_error, write_error
+from .drive import get_worksheet, next_available_row, set_name_date
 
 
 def write_command(user):

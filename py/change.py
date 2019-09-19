@@ -1,6 +1,6 @@
 import sys
-from utils import get_argument, get_date, display_loading_message, hide_loading_message_with_error, write_error
-from drive import get_worksheet, get_users_last_row, update_row
+from .utils import get_argument, get_date, display_loading_message, hide_loading_message_with_error, write_error
+from .drive import get_worksheet, get_users_last_row, update_row
 
 
 def change_command(user):
