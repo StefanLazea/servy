@@ -7,7 +7,7 @@ from share import share_command
 from version import version_command
 from change import change_command
 from delete import delete_command
-from utils import hide_loading_message_with_error
+from utils import hide_loading_message_with_error, write_error
 from startup_check import startup_check
 from reset import reset_command
 
@@ -37,6 +37,8 @@ def switch(command, user, is_sudo):
             delete_command(user, is_sudo)
         elif command == "reset":
             reset_command()
+        else:
+            write_error("Command not found. For further informations use `servy help`")
     except KeyboardInterrupt:
         hide_loading_message_with_error(True, "\n")
 
@@ -48,4 +50,4 @@ if __name__ == "__main__":
         command = sys.argv[3]
         switch(command, user, is_sudo)
     else: 
-        print("Please type a command. For further informations use `servy help`.")
+        print("Please type a command. For further informations use `servy help`")

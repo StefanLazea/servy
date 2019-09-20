@@ -1,7 +1,8 @@
 from json import load
 from os import path
 from init import init_app
-from utils import write_error
+from utils import write_error, get_credentials_path
+
 
 def try_init(message):
     write_error(message)
@@ -13,7 +14,7 @@ def try_init(message):
 
 def startup_check():
     try:
-        with open("credentials.json") as credentials:
+        with open(get_credentials_path()) as credentials:
             credentials_json = load(credentials)
             if not credentials_json["type"] or not credentials_json["project_id"] or not credentials_json["token_uri"] \
                     or not credentials_json["private_key_id"] or not credentials_json["private_key"] \
@@ -22,6 +23,6 @@ def startup_check():
                     or not credentials_json["default_spreadsheet"]:
                 pass
     except FileNotFoundError:
-        try_init("credentials.json is missing.")
+        try_init("credentials.json is missing")
     except KeyError:
-        try_init("credentials.json is malformed.")
+        try_init("credentials.json is malformed")

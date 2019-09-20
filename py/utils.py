@@ -23,7 +23,7 @@ def get_credentials_path():
     try:
         return environ["SNAP_DATA"] + "credentials.json"
     except KeyError:
-        return "credentials.json"
+        return path.realpath(__file__).split("/py")[0] + "/credentials.json"
 
 
 def get_argument(args, value):
