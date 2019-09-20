@@ -12,7 +12,8 @@ base: core18
 apps:
   servy:
     command: servy
-    plugs: [network]
+    plugs: 
+      - network
     
 parts:
   servy:

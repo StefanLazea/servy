@@ -1,4 +1,4 @@
-from utils import get_credentials_path
+from .utils import get_credentials_path
 from os import remove
 
 def reset_command():

@@ -21,7 +21,7 @@ def get_spreadsheet_name():
 
 def get_credentials_path():
     try:
-        return environ["SNAP_DATA"] + "credentials.json"
+        return environ["SNAP_COMMON"] + "/credentials.json"
     except KeyError:
         return path.realpath(__file__).split("/py")[0] + "/credentials.json"
 

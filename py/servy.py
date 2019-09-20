@@ -1,4 +1,6 @@
 import sys
+from os import geteuid, getuid
+from pwd import getpwuid
 from .init import init_app
 from .help import help_command
 from .write import write_command
