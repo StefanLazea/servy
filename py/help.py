@@ -31,6 +31,8 @@ Commands:
         Options
             -r <number>    Removes the specified row if it was inserted by the current user
                            If the command is run using sudo, it can remove any row
+    
+    servy reset                           Resets servy by removing credentials.json
 
     servy version                         Displays the version
 
