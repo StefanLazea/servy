@@ -30,4 +30,4 @@ pip3 freeze
 echo "alias servy='source $(pwd)/launch.sh'" >> ~/.bashrc
 source ~/.bashrc
 
-echo "Welcome to history-cli, $(whoami)!"
+echo "Welcome to servy, $(whoami)!"

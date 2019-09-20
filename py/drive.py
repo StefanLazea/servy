@@ -1,6 +1,6 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-from utils import get_spreadsheet_name, get_date
+from utils import get_spreadsheet_name, get_date, get_credentials_path
 
 
 def create_spreadsheet(shared_user):
@@ -22,7 +22,7 @@ def get_credentials():
     scope = ["https://spreadsheets.google.com/feeds",
              "https://www.googleapis.com/auth/drive"]
     credentials = ServiceAccountCredentials.from_json_keyfile_name(
-        "credentials.json", scope)
+        get_credentials_path(), scope)
     return credentials
 
 

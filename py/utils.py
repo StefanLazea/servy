@@ -4,7 +4,7 @@ from json import load
 from time import sleep
 from re import search
 from threading import Thread
-from os import path
+from os import path, environ
 from colorama import Fore, Style
 
 
@@ -14,9 +14,16 @@ errorMessage = ""
 
 
 def get_spreadsheet_name():
-    with open("credentials.json", "rb") as credentials:
+    with open(get_credentials_path(), "rb") as credentials:
         credentials_json = load(credentials)
         return credentials_json["default_spreadsheet"]
+
+
+def get_credentials_path():
+    try:
+        return environ["SNAP_DATA"] + "credentials.json"
+    except KeyError:
+        return "credentials.json"
 
 
 def get_argument(args, value):

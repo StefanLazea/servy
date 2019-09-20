@@ -9,6 +9,7 @@ from change import change_command
 from delete import delete_command
 from utils import hide_loading_message_with_error
 from startup_check import startup_check
+from reset import reset_command
 
 
 def switch(command, user, is_sudo):
@@ -34,6 +35,8 @@ def switch(command, user, is_sudo):
         elif command == "delete":
             startup_check()
             delete_command(user, is_sudo)
+        elif command == "reset":
+            reset_command()
     except KeyboardInterrupt:
         hide_loading_message_with_error(True, "\n")
 
