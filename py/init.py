@@ -18,6 +18,7 @@ def append_default_spreadsheet(credentials_path, default_spreadsheet):
             reset_command()
             exit()
 
+
 def init_app():
     print("Starting servy init process")
     print("............................")
@@ -29,18 +30,28 @@ def init_app():
                 append_default_spreadsheet(credentials_path, default_spreadsheet)
                 break
             except FileNotFoundError:
-                write_error("\n'credentials.json' does not exists")
-                print("Copy the json from the downloaded file in the following input")
-                input("Press any key to continue\n")
-                open(credentials_path, "wb").close()
+                write_error("\n'credentials.json' does not exists\n")
+                print("Enter/Paste the downloaded content. Ctrl-D to save it.")
                 try:
-                    write_credentials = "nano " + credentials_path
-                    system(write_credentials)
+                    credentials_content = []
+                    while True:
+                        try:
+                            line = input()
+                        except EOFError:
+                            break
+                        credentials_content.append(line)
+
+                    with open(credentials_path, "w+") as f:
+                        for line in credentials_content:
+                            f.write(line + "\n")
+
                     append_default_spreadsheet(credentials_path, default_spreadsheet)
                     break
-                except Exception :
+                except PermissionError:
+                    write_error("Permission error\n`servy init` should be run using root permissions\n")
+                    exit()
+                except Exception as e:
                     write_error("An error occured while saving credentials\n")
-                    reset_command()
                     exit()
                     
     ss = get_spreadsheet()
