@@ -5,8 +5,8 @@
 |___/\___|_|    \_/  \__, |
                       __/ |
                      |___/ 
--------version 1.0.0--------
-Developed with ❤ ©SiSC 2019
+-------version 1.0.3--------
+Developed with <3
 hit us on github @axbg @StefanLazea
 """
 
