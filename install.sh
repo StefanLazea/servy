@@ -1,33 +1,44 @@
 #!/bin/bash
 
-#checks if python3 and venv are installed
-#if not, installs python3 and venv
+# extracts the os
+unameOut="$(uname -s)"
+case "${unameOut}" in
+    Linux*)     os=linux;;
+    Darwin*)    os=mac;;
+esac
+
+# checks if python3 is installed, otherwise installs it
 if command -v python3 &>/dev/null; then
     echo Python 3 is installed!
 else
     echo python3 is now installing...
-    sudo apt-get install python3
+
+    if [ "$os" = 'linux' ]; then
+      sudo apt-get install python3
+    elif [ "$os" = 'mac' ]; then
+      sudo brew install python
+    fi
 fi
 
-if dpkg -s python3-venv &> /dev/null; then
-    echo Package python3-venv is installed!
-else
-    echo python3-venv is now installing...
-    sudo apt-get install python3-venv  
-fi
-
-#creates the env directory
+# creates the env directory
 python3 -m venv env --clear
 
-#activates the env
+# activates the env
 source env/bin/activate
 
-#installs the dependencies from the "dependencies" file using pip
+# installs the dependencies from the "dependencies" file using pip
 pip3 install -r requirements.txt
 pip3 freeze
 
-#creates an alias for history to current_directory/./launch.sh as a static path
-echo "alias servy='source $(pwd)/launch.sh'" >> ~/.bashrc
-source ~/.bashrc
+# creates an alias for history to current_directory/./launch.sh as a static path
+main_shell=${SHELL##*/}
+profile_file="$HOME/.${main_shell}rc"
+
+echo "alias servy='sh $(pwd)/launch.sh'" >> "$profile_file"
+
+# refreshes shell if bash
+if [ "$main_shell" = "bash" ]; then
+  source "$profile_file"
+fi
 
 echo "Welcome to servy, $(whoami)!"
