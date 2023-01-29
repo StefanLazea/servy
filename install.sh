@@ -1,5 +1,3 @@
-#!/bin/bash
-
 # extracts the os
 unameOut="$(uname -s)"
 case "${unameOut}" in
@@ -36,9 +34,7 @@ profile_file="$HOME/.${main_shell}rc"
 
 echo "alias servy='sh $(pwd)/launch.sh'" >> "$profile_file"
 
-# refreshes shell if bash
-if [ "$main_shell" = "bash" ]; then
-  source "$profile_file"
-fi
+# reload the shell
+exec $main_shell
 
 echo "Welcome to servy, $(whoami)!"
