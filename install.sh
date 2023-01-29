@@ -14,7 +14,11 @@ else
     if [ "$os" = 'linux' ]; then
       sudo apt-get install python3
     elif [ "$os" = 'mac' ]; then
-      sudo brew install python
+      if [ -f "`which brew`" ]; then
+        sudo brew install python
+      else
+        echo "brew is not installed"
+      fi
     fi
 fi
 
@@ -34,7 +38,7 @@ profile_file="$HOME/.${main_shell}rc"
 
 echo "alias servy='sh $(pwd)/launch.sh'" >> "$profile_file"
 
-# reload the shell
-exec $main_shell
+echo -e "\n\nWelcome to servy, $(whoami)!\n\n"
 
-echo "Welcome to servy, $(whoami)!"
+# open new shell to source the changes
+exec $main_shell
