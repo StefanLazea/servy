@@ -63,7 +63,7 @@ def format_log(logs):
         log_string += "Row:" + log["row"] + "\n"
 
         if log["details"]:
-            log_string += "Details: " + "\n\t" + log["details"] + "\n"
+            log_string += "Details: " + "\n\t" + log["details"].replace("\n", "\n\t") + "\n"
 
         log_string += "\n"
 
