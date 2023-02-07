@@ -25,7 +25,7 @@ def write_command(user):
                 ws.update_acell("D{}".format(current_row), description.decode("utf-8"))
 
             hide_loading_message_with_error(False)
-        except Exception:
-            hide_loading_message_with_error(True)
+        except Exception as e:
+            hide_loading_message_with_error(True, str(e))
     else:
         write_error("A message argument should be specified")

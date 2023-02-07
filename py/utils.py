@@ -91,11 +91,11 @@ def animate_loading(loading_message, finish_message):
         sys.stdout.write("\r" + errorMessage + "\033[K\n")
 
 
-def hide_loading_message_with_error(withError, withMessage="An error occured"):
+def hide_loading_message_with_error(withError, withMessage="Generic error"):
     global loaded, error, errorMessage
     loaded = True
     error = withError
-    errorMessage = withMessage
+    errorMessage = '\nAn error occurred: \n' + withMessage
 
 
 def validate_email(email):
