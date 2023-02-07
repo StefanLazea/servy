@@ -32,7 +32,7 @@ def get_argument(args, value):
     except:
         next_val = None
 
-    if(not next_val or "-" in next_val):
+    if not next_val:
         write_error("Argument not valid after " + value)
         exit()
 
