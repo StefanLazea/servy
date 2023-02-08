@@ -39,6 +39,6 @@ def change_command(user):
         update_row(ws, stored_row, row_number)
 
         hide_loading_message_with_error(False)
-    except Exception:
-        hide_loading_message_with_error(True)
+    except Exception as e:
+        hide_loading_message_with_error(True, str(e))
         exit()

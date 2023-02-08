@@ -12,7 +12,9 @@
         ```sudo echo "alias servy='source $(pwd)/launch.sh'" >> /etc/bash.bashrc```
 3. run "servy version" to check if the installation succeeded
 4. [create a Google Cloud Platform project and download the generated credentials json](https://gspread.readthedocs.io/en/latest/oauth2.html) - *follow only the first 3 steps*
-5. run "servy init" and follow the prompts
-6. run "servy help" to check the available commands
-7. **???**
-8. profit
+5. enable [Google Drive API](https://console.cloud.google.com/apis/library/drive.googleapis.com)
+6. enable [Google Sheets API](https://console.cloud.google.com/apis/library/sheets.googleapis.com)
+7. run "servy init" and follow the prompts
+8. run "servy help" to check the available commands
+9. **???**
+10. profit

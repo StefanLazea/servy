@@ -75,5 +75,5 @@ def init_app():
         ws = create_spreadsheet(email)
         init_spreadsheet(ws)
         hide_loading_message_with_error(False)
-    except:
-        hide_loading_message_with_error(True)
+    except Exception as e:
+        hide_loading_message_with_error(True, str(e))
