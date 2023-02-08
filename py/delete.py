@@ -21,8 +21,8 @@ def delete_command(user, is_sudo):
 
                 delete_row(ws, row)
                 hide_loading_message_with_error(False)
-            except Exception:
-                hide_loading_message_with_error(True)
+            except Exception as e:
+                hide_loading_message_with_error(True, str(e))
         else:
             write_error("Invalid row")
     else:

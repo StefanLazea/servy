@@ -32,7 +32,7 @@ def get_argument(args, value):
     except:
         next_val = None
 
-    if(not next_val or "-" in next_val):
+    if not next_val:
         write_error("Argument not valid after " + value)
         exit()
 
@@ -63,7 +63,7 @@ def format_log(logs):
         log_string += "Row:" + log["row"] + "\n"
 
         if log["details"]:
-            log_string += "Details: " + "\n\t" + log["details"] + "\n"
+            log_string += "Details: " + "\n\t" + log["details"].replace("\n", "\n\t") + "\n"
 
         log_string += "\n"
 
@@ -91,11 +91,11 @@ def animate_loading(loading_message, finish_message):
         sys.stdout.write("\r" + errorMessage + "\033[K\n")
 
 
-def hide_loading_message_with_error(withError, withMessage="An error occured"):
+def hide_loading_message_with_error(withError, withMessage="Generic error"):
     global loaded, error, errorMessage
     loaded = True
     error = withError
-    errorMessage = withMessage
+    errorMessage = '\nAn error occurred: \n' + withMessage
 
 
 def validate_email(email):

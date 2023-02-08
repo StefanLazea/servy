@@ -1,5 +1,6 @@
+import editor
+
 from json import load, dump, decoder
-from os import system
 from .reset import reset_command
 from .utils import display_loading_message, hide_loading_message_with_error, validate_email, print_permissions, write_error, get_credentials_path
 from .drive import create_spreadsheet, init_spreadsheet, get_worksheet, get_spreadsheet, delete_spreadsheet
@@ -31,19 +32,13 @@ def init_app():
                 break
             except FileNotFoundError:
                 write_error("\n'credentials.json' does not exists\n")
-                print("Enter/Paste the downloaded content. Ctrl-D to save it.")
+                input("Press enter to open an editor and paste the credentials.json content")
+
                 try:
-                    credentials_content = []
-                    while True:
-                        try:
-                            line = input()
-                        except EOFError:
-                            break
-                        credentials_content.append(line)
+                    line = editor.edit()
 
                     with open(credentials_path, "w+") as f:
-                        for line in credentials_content:
-                            f.write(line + "\n")
+                        f.write(line.decode("utf-8"))
 
                     append_default_spreadsheet(credentials_path, default_spreadsheet)
                     break
@@ -80,5 +75,5 @@ def init_app():
         ws = create_spreadsheet(email)
         init_spreadsheet(ws)
         hide_loading_message_with_error(False)
-    except:
-        hide_loading_message_with_error(True)
+    except Exception as e:
+        hide_loading_message_with_error(True, str(e))

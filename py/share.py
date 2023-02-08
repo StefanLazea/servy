@@ -15,8 +15,8 @@ def share_command():
                 ss = get_spreadsheet()
                 share_spreadsheet(ss, email)
                 hide_loading_message_with_error(False)
-            except Exception:
-                hide_loading_message_with_error(True)
+            except Exception as e:
+                hide_loading_message_with_error(True, str(e))
         else:
             write_error("Invalid email: " + email)
     elif "-d" in sys.argv:
@@ -27,7 +27,7 @@ def share_command():
                 ss = get_spreadsheet()
                 ss.remove_permissions(email)
                 hide_loading_message_with_error(False)
-            except Exception:
-                hide_loading_message_with_error(True)
+            except Exception as e:
+                hide_loading_message_with_error(True, str(e))
         else:
             write_error("Invalid email: " + email)

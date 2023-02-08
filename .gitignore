@@ -3,6 +3,8 @@ env
 __pycache__
 .vscode
 *.pyc
+credentials.json
+sandbox
 prime
 *.snap
 *.snap-build
