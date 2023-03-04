@@ -1,5 +1,5 @@
 name: servy
-version: '1.0.3'
+version: '1.0.4'
 summary: your ultimate cli action tracking app
 description: |
   servy is a CLI app written in python & bash that 
